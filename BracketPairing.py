@@ -18,7 +18,7 @@ def pairing(fileList, row, col, left='(', right=')'):
             # print(c)
             j += 1
             if c == left:
-                brkStk.push(c)
+                brkStk.push((i, j))
                 L.append((i, j))
             elif c == right:
                 if not brkStk.isEmpty():
@@ -30,6 +30,16 @@ def pairing(fileList, row, col, left='(', right=')'):
                     continue
             else:
                 continue
+
+    # check unpaired left bracktes
+    if not brkStk.isEmpty():
+        while not brkStk.isEmpty():
+            pos = L.index(brkStk.getBot())
+            R.insert(pos, (-1, -1))
+            brkStk.delist()
+    else:
+        pass
+
     res = [L, R]
     return res
 
@@ -37,9 +47,7 @@ def pairing(fileList, row, col, left='(', right=')'):
 if __name__ == '__main__':
     # file input
     fileName = input()
-    # print(fileName)
     fileList = open(fileName, 'r')
     content = fileList.readlines()
-    # print(content)
     l = pairing(content, 1, 1, '(', ')')
     print(l)

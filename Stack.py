@@ -13,3 +13,15 @@ class Stack:
             return "Error：The stack is empty"
         else:
             return self.lista.pop()
+
+    def getBot(self):
+        if self.isEmpty():
+            return "Error：The stack is empty"
+        else:
+            return self.lista[0]
+
+    def delist(self):
+        if self.isEmpty():
+            return "Error：The stack is empty"
+        else:
+            return self.lista.pop(0)

@@ -19,18 +19,17 @@ python3 BracketPairing.py
    For input file ```i1```
 
    ```
-   ))hello (world
-   )
+   )((hello (world
+   )(
    ni(hao)
    ```
 
    we will have the result:
 
    ```
-   [[(-1, -1), (-1, -1), (1, 9), (3, 3)], [(1, 1), (1, 2), (2, 1), (3, 7)]]
+   [[(-1, -1), (1, 2), (1, 3), (1, 10), (2, 2), (3, 3)], [(1, 1), (-1, -1), (-1, -1), (2, 1), (-1, -1), (3, 7)]]
    ```
 
-   The result is composed of 2 parts: **Left brackets' postions + Right ones' positions**
+   The result is composed of 2 parts: **Left brackets' postions + Right ones' positions**, which are respectively ordered.
 
    If any of the brackets are not pairing, then the missing ones' positions will be ```(-1,-1)```
-
