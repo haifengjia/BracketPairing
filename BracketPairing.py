@@ -1,21 +1,52 @@
-# ETHAN JIA 2021/04/11
-from Stack import Stack
+import os
+from pathconf import proj_path, json_path
+import json
 
 
-def pairing(fileList, row, col, left='(', right=')'):
-    # FIXME: add the first row/col to start
+class Stack:
+    def __init__(self):
+        self.lista = []  # 创建空栈
+
+    def get_len(self):
+        return len(self.lista)
+
+    def isEmpty(self):
+        return len(self.lista) == 0
+
+    def push(self, item):
+        self.lista.append(item)
+
+    def pop(self):
+        if self.isEmpty():
+            return "Error：The stack is empty"
+        else:
+            return self.lista.pop()
+
+    def getBot(self):
+        if self.isEmpty():
+            return "Error：The stack is empty"
+        else:
+            return self.lista[0]
+
+    def delist(self):
+        if self.isEmpty():
+            return "Error：The stack is empty"
+        else:
+            return self.lista.pop(0)
+
+
+def pairing(fileList, left='(', right=')'):
     pos = 0
     i = 0
     res = []
     L = []
     R = []
+    maxDepth = 0
     brkStk = Stack()
     for line in fileList:
-        # print(line)
         i += 1
         j = 0
         for c in line:
-            # print(c)
             j += 1
             if c == left:
                 brkStk.push((i, j))
@@ -30,6 +61,7 @@ def pairing(fileList, row, col, left='(', right=')'):
                     continue
             else:
                 continue
+            maxDepth = max(maxDepth, brkStk.get_len())
 
     # check unpaired left bracktes
     if not brkStk.isEmpty():
@@ -41,13 +73,25 @@ def pairing(fileList, row, col, left='(', right=')'):
         pass
 
     res = [L, R]
-    return res
+    return (maxDepth, res)
 
 
 if __name__ == '__main__':
     # file input
-    fileName = input()
-    fileList = open(fileName, 'r')
-    content = fileList.readlines()
-    l = pairing(content, 1, 1, '(', ')')
-    print(l)
+    # fileName = input()
+    if proj_path[-1] != '/':
+        proj_path = proj_path + "/"  # NOTE: ensure that the path is openable!!!
+
+    files = os.listdir(proj_path+"src/")
+    resDict = []
+    for file in files:
+        f = open(proj_path + "src/" + file, 'r')
+        content = f.readlines()
+        resList = pairing(content, '(', ')')
+        isPaired = (not (-1, -1) in resList[1][0]
+                    ) and (not (-1, -1) in resList[1][1])
+        resDict.append({
+            "File name": file, "Maximum depth": resList[0], "isPaired": isPaired})
+        f.close()
+    with open(os.path.abspath("..") + json_path, 'w') as resFile:
+        json.dump(resDict, resFile, indent=1)

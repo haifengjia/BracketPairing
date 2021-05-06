@@ -1,35 +1,49 @@
-# Bracket Pairing 
+# Bracket Pairing
 
 This is a simple bracket pairing porject by Python 3.
 
+## Requirement
+
+Python >= 3.6
+
+Python 3.8 or higher preferred
+
 ## Usage
 
-1. Use python 3 to compile the file
+1. **First please change the file paths in the pathconf.py**
 
-```bash
-python3 BracketPairing.py
-```
+   ie. ` proj_path ` and `json_path`
 
-2. Input the file name that you want to check (eg. ```i1```)
+2. Run with the following command
 
-3. Then the program will output a List
-
-   eg.
-
-   For input file ```i1```
-
-   ```
-   )((hello (world
-   )(
-   ni(hao)
+   ```bash
+   python BracketPairing.py
    ```
 
-   we will have the result:
+   
 
+3. Then you could find a folder called `.tmp`, **in the parent folder of the working directory**, which contains the JSON file we want.
+
+   The output JSON file is like the following:
+
+   ```json
+   [
+    {
+     "File name": "Action.elm",
+     "Maximum depth": 4, 
+     "isPaired": true
+    },
+    {
+     "File name": "Card.elm",
+     "Maximum depth": 2,
+     "isPaired": true
+    },
+    {
+     "File name": "ColorScheme.elm",
+     "Maximum depth": 1,
+     "isPaired": true
+    }
+   ]
    ```
-   [[(-1, -1), (1, 2), (1, 3), (1, 10), (2, 2), (3, 3)], [(1, 1), (-1, -1), (-1, -1), (2, 1), (-1, -1), (3, 7)]]
-   ```
 
-   The result is composed of 2 parts: **Left brackets' postions + Right ones' positions**, which are respectively ordered.
-
-   If any of the brackets are not pairing, then the missing ones' positions will be ```(-1,-1)```
+   
